@@ -1,7 +1,14 @@
-<div class="grid min-h-[calc(100dvh-120px)] grid-cols-[1fr_320px] gap-4">
+<div class="grid min-h-[calc(100dvh-120px)] grid-cols-[1fr_335px] gap-4">
   <section class="grid gap-4 rounded-xl shadow bg-white">
   </section>
 
-  <aside class="rounded-xl bg-white shadow p-4 flex flex-col">
+  <aside class="rounded-xl bg-white shadow p-4 flex flex-col justify-between">
+    <p-datepicker [inline]="true"  size="small" [style.height.px]="322"/>
+
+    <div class="events-scroll h-[300px] min-h-[calc(100%-410px)] pr-2 overflow-y-auto">
+      <app-events></app-events>
+    </div>
+
+    <p-button type="button" label="Ver calendário completo" [fluid]="true" />
   </aside>
 </div>

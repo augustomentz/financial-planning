@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
-import { BoxComponent } from './shared/box/box';
-import { MenuComponent } from './shared/menu/menu';
-import { SidebarComponent } from './shared/sidebar/sidebar';
+import { BoxComponent } from './components/box/box';
+import { MenuComponent } from './components/menu/menu';
+import { SidebarComponent } from './components/sidebar/sidebar';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, SidebarComponent, BoxComponent, MenuComponent],

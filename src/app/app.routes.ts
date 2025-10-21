@@ -15,7 +15,7 @@ export const routes: Routes = [
   },
   {
     path: 'transactions',
-    loadComponent: () => import('./pages/dashboard/transactions/transactions').then(m => m.TransactionsComponent),
+    loadComponent: () => import('./pages/transactions/transactions').then(m => m.TransactionsComponent),
     data: {
       title: 'Entradas e Saídas'
     }

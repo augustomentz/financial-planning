@@ -4,6 +4,7 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,9 +13,16 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     providePrimeNG({
-      theme: {
-          preset: Aura
+      theme: { preset: Aura },
+      translation: {
+        dayNames: ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'],
+        dayNamesShort: ['dom','seg','ter','qua','qui','sex','sáb'],
+        dayNamesMin: ['DOM','SEG','TER','QUA','QUI','SEX','SAB'],
+        monthNames: ['JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO'],
+        weekHeader: 'Sem',
+        firstDayOfWeek: 0
       }
-  })
+    }),
+    provideEnvironmentNgxMask()
   ]
 };
