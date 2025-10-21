@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+
+@source "./src/**/*.{html,ts}";
+
+@theme {
+  --color-primary: #0F2A1D;
+  --color-surface: #E0F1CF;
+  --color-muted: #EDECE1;
+  --color-orange: #C4661F;
+  --color-light-brown: #B99470;
+  --color-dark: #30422F;
+  --color-red: #DEB6B6;
+
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  html { font-family: var(--font-sans); }
+}
+
