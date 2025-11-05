@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
+import { TransactionType } from "./transactions";
 
 @Pipe({
   name: 'transaction',
@@ -7,9 +8,9 @@ import { Pipe, PipeTransform } from "@angular/core";
 export class TransactionPipe implements PipeTransform {
   transform(value: any): any {
     switch (value) {
-      case 'entrada':
+      case TransactionType.CREDIT:
         return 'Entrada';
-      case 'saida':
+      case TransactionType.DEBIT:
         return 'Saída';
       default:
         return value;

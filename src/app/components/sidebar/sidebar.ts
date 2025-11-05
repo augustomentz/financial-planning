@@ -23,6 +23,6 @@ export class SidebarComponent {
   options: Option[] = [
     { icon: 'heroArrowsRightLeftSolid', label: 'Dashboard', path: '/dashboard' },
     { icon: 'heroSquares2x2Solid', label: 'Transactions', path: '/transactions' },
-    { icon: 'heroCalendarDaysSolid', label: 'Reports', path: '/reports' },
+    { icon: 'heroCalendarDaysSolid', label: 'Calendar', path: '/calendar' },
   ]
 }

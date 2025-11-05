@@ -1,16 +1,19 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { EventPipe } from './event.pipe';
-import { NgClass } from '@angular/common';
+import { DatePipe, JsonPipe, NgClass } from '@angular/common';
+import { TransactionType } from '../../pages/transactions/transactions';
 
-type Event = {
-  text: string;
-  day: string;
-  entry: boolean
+export type Event = {
+  id: string;
+  description: string;
+  type: TransactionType,
+  competency: string
+  created_at: string;
 }
 
 @Component({
   selector: 'app-events',
-  imports: [EventPipe, NgClass],
+  imports: [EventPipe, NgClass, DatePipe],
   standalone: true,
   templateUrl: './events.html',
   styleUrls: ['./events.scss'],
@@ -18,24 +21,42 @@ type Event = {
   providers: [EventPipe],
 })
 export class EventsComponent {
-  readonly events = signal<{
-    period: 'day' | 'week' | 'month' | 'year';
-    events: Event[];
-  }[]>([
-    {
-      period: 'day',
-      events: [
-        { text: 'Pagar cartão de crédito', day: '01', entry: false },
-        { text: 'Recebimento de dividendos', day: '07', entry: true },
-        { text: 'Vencimento da academia', day: '07', entry: false },
-      ]
-    },
-    {
-      period: 'month',
-      events: [
-        { text: 'Parcela do item X', day: '14', entry: false },
-        { text: 'Recebimento de férias', day: '20', entry: true },
-      ]
-    }
-  ]);
+  events = input.required<Event[]>();
+
+  readonly eventsTest = computed(() => {
+    const date = new Date();
+    const periods = ['day', 'week', 'year']
+
+    return periods.map((period, index) => {
+      return {
+        period,
+        events: this.events().filter((event) => {
+          if (period === 'day') {
+            return event.competency.split('-')[0] === date.getDate().toString();
+          } else if (period === 'week') {
+            return this.isDateInCurrentWeek(new Date(event.competency));
+          } else if (period === 'year') {
+            return event.competency.split('-')[0] === date.getFullYear().toString();
+          }
+
+          return false;
+        })
+      }
+    })
+  })
+
+  isDateInCurrentWeek(dateToCheck: Date) {
+    const today = new Date();
+
+    const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
+
+    firstDayOfWeek.setHours(0, 0, 0, 0);
+
+    const lastDayOfWeek = new Date(firstDayOfWeek);
+    lastDayOfWeek.setDate(lastDayOfWeek.getDate() + 6);
+
+    lastDayOfWeek.setHours(23, 59, 59, 999);
+
+    return dateToCheck.getTime() >= firstDayOfWeek.getTime() && dateToCheck.getTime() <= lastDayOfWeek.getTime();
+  }
 }

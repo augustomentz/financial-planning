@@ -19,5 +19,12 @@ export const routes: Routes = [
     data: {
       title: 'Entradas e Saídas'
     }
+  },
+  {
+    path: 'calendar',
+    loadComponent: () => import('./pages/calendar/calendar').then(m => m.Calendar),
+    data: {
+      title: 'Calendário'
+    }
   }
 ];

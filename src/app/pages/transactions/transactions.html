@@ -2,52 +2,52 @@
   <div class="grid grid-cols-3 gap-4">
     <app-box classList="text-center">
       <h1 class="text-primary text-2xl font-bold mb-4">Entradas +</h1>
-      <p class="text-green-400 text-[40px] font-bold">{{ entry() | currency: 'BRL' }}</p>
+      <p class="text-[#30422F] text-[40px] font-bold">{{ transactionsInfo().credit | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</p>
     </app-box>
 
     <app-box classList="text-center">
       <h1 class="text-primary text-2xl font-bold mb-4">Saídas -</h1>
-      <p class="text-red-400 text-[40px] font-bold">{{ withdrawal() | currency: 'BRL' }}</p>
+      <p class="text-[#CF0E0E] text-[40px] font-bold">{{ transactionsInfo().debit | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</p>
     </app-box>
 
     <app-box classList="text-center">
       <h1 class="text-primary text-2xl font-bold mb-4">Total $</h1>
-      <p class="text-black text-[40px] font-bold" [ngClass]="{'text-red': total() < 0, 'text-green-400': total() > 0}">{{ total() | currency: 'BRL' }}</p>
+      <p class="text-[#30422F] text-[40px] font-bold" [ngClass]="{'#CF0E0E': transactionsInfo().total < 0, '#30422F': transactionsInfo().total > 0}">{{ transactionsInfo().total | currency: 'BRL':'symbol':'1.2-2':'pt-BR' }}</p>
     </app-box>
-
-
   </div>
 
-  <div class="grid grid-cols-4 gap-4">
+  <div class="grid grid-cols-4 gap-4 my-10" [formGroup]="form">
     <p-floatlabel variant="on">
-      <input pInputText id="on_label" autocomplete="off" class="w-full" />
+      <input pInputText id="on_label" autocomplete="off" class="w-full" formControlName="description" />
       <label for="on_label">Descrição</label>
     </p-floatlabel>
 
     <p-floatlabel variant="on">
-        <p-inputNumber id="on_label" autocomplete="off" class="w-full" mode="currency" currency="BRL" locale="pt-BR"/>
+        <p-inputNumber id="on_label" autocomplete="off" class="w-full" mode="currency" currency="BRL" locale="pt-BR" formControlName="amount" />
         <label for="on_label">Valor</label>
     </p-floatlabel>
 
-      <p-select [options]="transactionTypes()" optionLabel="label" placeholder="Tipo de transação" class="w-full" />
+      <p-select [options]="transactionTypes()" optionLabel="label"  placeholder="Tipo de transação" class="w-full" formControlName="type" />
 
-      <p-button type="button" label="Adicionar" [fluid]="true" />
+      <p-button type="button" label="Adicionar" [fluid]="true" (onClick)="handleAddTransaction()" />
   </div>
 
-  <p-table [value]="transactions()">
+  <h1 class="text-primary text-2xl font-bold mb-2">Movimentações</h1>
+
+  <p-table [value]="transactionsData()">
     <ng-template #header>
         <tr>
-            <th>Entradas +</th>
-            <th>Saídas -</th>
+            <th>Valor</th>
             <th>Tipo</th>
+            <th>Descrição</th>
         </tr>
     </ng-template>
     <ng-template #body let-transaction>
         <tr>
-            <td>{{ transaction.entries | currency: 'BRL' }}</td>
-            <td>{{ transaction.withdrawal | currency: 'BRL' }}</td>
+            <td>{{ transaction.amount | currency: 'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
             <td>{{ transaction.type | transaction }}</td>
+            <td>{{ transaction.description }}</td>
         </tr>
     </ng-template>
-</p-table>
+  </p-table>
 </div>

@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { DatePicker } from 'primeng/datepicker';
 import { Button } from 'primeng/button';
 import { EventsComponent } from '../../components/events/events';
+import type { Event as EventsEvent } from '../../components/events/events';
+import { DashboardService } from './dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,4 +15,14 @@ import { EventsComponent } from '../../components/events/events';
 })
 export class DashboardComponent {
   date: Date[] | undefined;
+
+  dashboard = inject(DashboardService);
+  events = signal<EventsEvent[]>([]);
+
+  ngOnInit() {
+    this.dashboard.events().subscribe((events: EventsEvent[]) => {
+      console.log(events);
+      this.events.set(events)
+    });
+  }
 }

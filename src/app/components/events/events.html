@@ -1,13 +1,15 @@
 <div class="flex flex-col gap-2 text-black">
-  @for (event of events(); track event.period) {
+  @for (event of eventsTest(); track event.period) {
     <div class="flex flex-col gap-2">
       <p class="text-right text-xs font-medium">{{ event.period | event }}</p>
 
-      @for (event of event.events; track event.day) {
+      @for (event of event.events; track event.id) {
         <div class="grid grid-cols-[40px_1fr] items-center gap-2 h-10 border border-gray-700 rounded-md overflow-hidden">
-          <div class="text-xl h-full flex items-center justify-center" [ngClass]="{'bg-red': event.entry, 'bg-surface': !event.entry}">{{ event.day }}</div>
-          <p class="text-sm font-medium text-left">{{ event.text }}</p>
+          <div class="text-xl h-full flex items-center justify-center" [ngClass]="{'bg-red': event.type === 'DEBIT', 'bg-surface': event.type === 'CREDIT'}">{{ event.competency | date: 'dd' }}</div>
+          <p class="text-sm font-medium text-left">{{ event.description }}</p>
         </div>
+      } @empty {
+        <p class="text-sm font-medium text-left">Nenhum evento para este período</p>
       }
     </div>
   }

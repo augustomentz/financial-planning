@@ -6,7 +6,7 @@
     <p-datepicker [inline]="true"  size="small" [style.height.px]="322"/>
 
     <div class="events-scroll h-[300px] min-h-[calc(100%-410px)] pr-2 overflow-y-auto">
-      <app-events></app-events>
+      <app-events [events]="events()"></app-events>
     </div>
 
     <p-button type="button" label="Ver calendário completo" [fluid]="true" />
