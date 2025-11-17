@@ -3,12 +3,25 @@
   </section>
 
   <aside class="rounded-xl bg-white shadow p-4 flex flex-col justify-between">
-    <p-datepicker [inline]="true"  size="small" [style.height.px]="322"/>
+    <p-datepicker
+      [inline]="true"
+      size="small"
+      [style.height.px]="365"
+    >
+      <ng-template pTemplate="date" let-date>
+        @let eventType = hasEvent(date);
+        <div class="calendar-day"
+             [class.event-debit]="eventType === 'DEBIT'"
+             [class.event-credit]="eventType === 'CREDIT'">
+          {{ date.day }}
+        </div>
+      </ng-template>
+    </p-datepicker>
 
-    <div class="events-scroll h-[300px] min-h-[calc(100%-410px)] pr-2 overflow-y-auto">
+    <div class="events-scroll h-[300px] min-h-[calc(100%-460px)] pr-2 overflow-y-auto">
       <app-events [events]="events()"></app-events>
     </div>
 
-    <p-button type="button" label="Ver calendário completo" [fluid]="true" />
+    <p-button type="button" label="Ver calendário completo" [fluid]="true" (onClick)="navigateToCalendar()" />
   </aside>
 </div>

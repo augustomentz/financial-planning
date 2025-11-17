@@ -23,24 +23,27 @@ export type Event = {
 export class EventsComponent {
   events = input.required<Event[]>();
 
-  readonly eventsTest = computed(() => {
+  readonly eventsByPeriod = computed(() => {
     const date = new Date();
     const periods = ['day', 'week', 'year']
 
     return periods.map((period, index) => {
       return {
         period,
-        events: this.events().filter((event) => {
-          if (period === 'day') {
-            return event.competency.split('-')[0] === date.getDate().toString();
-          } else if (period === 'week') {
-            return this.isDateInCurrentWeek(new Date(event.competency));
-          } else if (period === 'year') {
-            return event.competency.split('-')[0] === date.getFullYear().toString();
-          }
+        events:
+          this
+            .events()
+            .filter((event) => {
+              if (period === 'day') {
+                return event.competency.split('-')[0] === date.getDate().toString();
+              } else if (period === 'week') {
+                return this.isDateInCurrentWeek(new Date(event.competency));
+              } else if (period === 'year') {
+                return event.competency.split('-')[0] === date.getFullYear().toString();
+              }
 
-          return false;
-        })
+              return false;
+            })
       }
     })
   })

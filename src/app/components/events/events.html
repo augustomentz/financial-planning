@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-2 text-black">
-  @for (event of eventsTest(); track event.period) {
+  @for (event of eventsByPeriod(); track event.period) {
     <div class="flex flex-col gap-2">
       <p class="text-right text-xs font-medium">{{ event.period | event }}</p>
 

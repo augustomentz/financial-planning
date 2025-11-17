@@ -7,7 +7,7 @@ import type { Event as EventsEvent } from "../../components/events/events";
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService {
+export class CalendarService {
   http = inject(HttpClient);
 
   events() {
