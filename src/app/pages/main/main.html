@@ -1,0 +1,11 @@
+<main class="grid grid-cols-[96px_1fr] h-dvh">
+  <app-sidebar></app-sidebar>
+
+  <div class="flex min-h-[60dvh] flex-col gap-2 p-4">
+    <app-box>
+      <app-menu [title]="title()"></app-menu>
+    </app-box>
+
+    <router-outlet (activate)="onActivate()" />
+  </div>
+</main>
