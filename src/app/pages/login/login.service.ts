@@ -14,7 +14,7 @@ export class LoginService {
     return this.http.post<User[]>(`${environment.apiUrl}/authenticate`, {
       email,
       password
-    }).pipe(map((response: any) => response.events));
+    }).pipe(map((response: any) => response));
   }
 
   register(name: string, email: string, password: string) {
@@ -23,5 +23,9 @@ export class LoginService {
       email,
       password
     }).pipe(map((response: any) => response.events));
+  }
+
+  getUserInfo(id: string) {
+    return this.http.get<User[]>(`${environment.apiUrl}/user?id=${id}`, {}).pipe(map((response: any) => response.user));
   }
 }
