@@ -10,6 +10,7 @@ import { TableModule } from 'primeng/table';
 import { TransactionPipe } from './transaction.pipe';
 import { TransactionsService } from './transactions.service';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
 
 export type Transaction = {
   id: string;
@@ -32,7 +33,7 @@ export enum TransactionType {
 
 @Component({
   selector: 'app-transactions',
-  imports: [BoxComponent, CurrencyPipe, NgClass, InputText, Button, FloatLabel, Select, InputNumber, TableModule, TransactionPipe, ReactiveFormsModule],
+  imports: [BoxComponent, CurrencyPipe, NgClass, InputText, Button, FloatLabel, Select, InputNumber, TableModule, TransactionPipe, ReactiveFormsModule, DatePickerModule],
   standalone: true,
   templateUrl: './transactions.html',
   styleUrls: ['./transactions.scss'],

@@ -1,3 +1,46 @@
 <div class="calendar-container">
+  <p-button (click)="showDialog()" label="Adicionar Evento" class="absolute right-[32px]" />
+
+  <p-dialog
+    header="Adicionar Evento"
+    [modal]="true"
+    [(visible)]="visible"
+    [style]="{ width: '25rem' }"
+    [contentStyle]="{ 'overflow': 'visible' }"
+  >
+    <span class="p-text-secondary block mb-8">Adicione um evento ao seu calendário.</span>
+
+    <form [formGroup]="form()">
+      <div class="flex items-center gap-4 mb-4">
+        <p-floatlabel variant="on" class="w-full">
+          <input pInputText id="on_label" autocomplete="off" class="w-full" formControlName="description" />
+          <label for="on_label">Descrição</label>
+        </p-floatlabel>
+      </div>
+      <div class="flex items-center gap-4 mb-4">
+        <p-select [options]="transactionTypes()" optionLabel="label"  placeholder="Tipo de transação" class="w-full" formControlName="type" />
+      </div>
+      <div class="flex flex-col gap-2 mb-8 w-full">
+        <p-datepicker
+          inputId="calendar-24h"
+          formControlName="competency"
+          [showTime]="true"
+          hourFormat="24"
+          dateFormat="dd/mm/yy"
+          [inline]="false"
+          [showIcon]="true"
+          appendTo="body"
+          class="w-full"
+          placeholder="DD/MM/YYYY HH:MM"
+        />
+      </div>
+    </form>
+
+    <div class="flex justify-end gap-2">
+      <p-button label="Cancelar" severity="secondary" (click)="visible.set(false)" />
+      <p-button label="Adicionar" (click)="add()" />
+    </div>
+  </p-dialog>
+
   <full-calendar [options]="calendarOptions()"></full-calendar>
 </div>

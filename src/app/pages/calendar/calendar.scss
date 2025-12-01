@@ -9,6 +9,57 @@
   padding: 1rem;
 
   ::ng-deep {
+    // Modal styling
+    .p-dialog {
+      border-radius: 1rem;
+      overflow: hidden;
+
+      .p-dialog-header {
+        background-color: white;
+        color: #1f2937;
+        padding: 1.25rem 1.5rem;
+      }
+
+      .p-dialog-content {
+        background-color: white;
+        color: #374151;
+        padding: 0 1.5rem 1.5rem 1.5rem
+      }
+
+      .p-dialog-footer {
+        background-color: white;
+        padding: 1rem 1.5rem;
+        border-top: 1px solid #e5e7eb;
+        border-radius: 0 0 0.5rem 0.5rem;
+      }
+
+      // Text secondary
+      .p-text-secondary {
+        color: #6b7280;
+      }
+
+      // Button styling within modal
+      .p-button {
+        border-radius: 0.375rem;
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        font-size: 0.875rem;
+        transition: all 0.15s ease;
+
+        &.p-button-secondary {
+          background-color: #e5e7eb;
+          border-color: #e5e7eb;
+          color: #4b5563;
+
+          &:hover {
+            background-color: #d1d5db;
+            border-color: #d1d5db;
+            color: #1f2937;
+          }
+        }
+      }
+    }
+
     .fc {
       height: 100%;
 

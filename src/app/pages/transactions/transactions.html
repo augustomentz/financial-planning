@@ -27,9 +27,9 @@
         <label for="on_label">Valor</label>
     </p-floatlabel>
 
-      <p-select [options]="transactionTypes()" optionLabel="label"  placeholder="Tipo de transação" class="w-full" formControlName="type" />
+    <p-select [options]="transactionTypes()" optionLabel="label"  placeholder="Tipo de transação" class="w-full" formControlName="type" />
 
-      <p-button type="button" label="Adicionar" [fluid]="true" (onClick)="handleAddTransaction()" />
+    <p-button type="button" label="Adicionar" [fluid]="true" (onClick)="handleAddTransaction()" />
   </div>
 
   <h1 class="text-primary text-2xl font-bold mb-2">Movimentações</h1>

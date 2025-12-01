@@ -1,15 +1,7 @@
-import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
+import { DatePipe, NgClass } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { Event } from '../../core/event';
 import { EventPipe } from './event.pipe';
-import { DatePipe, JsonPipe, NgClass } from '@angular/common';
-import { TransactionType } from '../../pages/transactions/transactions';
-
-export type Event = {
-  id: string;
-  description: string;
-  type: TransactionType,
-  competency: string
-  created_at: string;
-}
 
 @Component({
   selector: 'app-events',

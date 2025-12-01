@@ -3,10 +3,9 @@ import { DatePicker } from 'primeng/datepicker';
 import { Button } from 'primeng/button';
 import { PrimeTemplate } from 'primeng/api';
 import { EventsComponent } from '../../components/events/events';
-import type { Event as EventsEvent } from '../../components/events/events';
 import { DashboardService } from './dashboard.service';
 import { Router } from '@angular/router';
-
+import { Event } from '../../core/event';
 @Component({
   selector: 'app-dashboard',
   imports: [DatePicker, Button, EventsComponent, PrimeTemplate],
@@ -19,7 +18,7 @@ export class DashboardComponent {
   date: Date[] | undefined;
 
   dashboard = inject(DashboardService);
-  events = signal<EventsEvent[]>([]);
+  events = signal<Event[]>([]);
   router = inject(Router);
 
   // Map of dates with event types
@@ -36,7 +35,7 @@ export class DashboardComponent {
   });
 
   ngOnInit() {
-    this.dashboard.events().subscribe((events: EventsEvent[]) => {
+    this.dashboard.events().subscribe((events: Event[]) => {
       this.events.set(events);
     });
   }

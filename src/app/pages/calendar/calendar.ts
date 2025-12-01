@@ -7,19 +7,39 @@ import multiMonthPlugin from '@fullcalendar/multimonth';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { CalendarService } from './calendar.service';
 
-import type { Event as EventsEvent } from '../../components/events/events';
-import { BoxComponent } from '../../components/box/box';
-
+import type { Event } from '../../core/event';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TransactionType } from '../transactions/transactions';
+import { Select } from 'primeng/select';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputText } from 'primeng/inputtext';
+import { DatePicker } from 'primeng/datepicker';
 @Component({
   selector: 'app-calendar',
   standalone: true,
-  imports: [FullCalendarModule],
+  imports: [FullCalendarModule, ButtonModule, DialogModule, ReactiveFormsModule, Select, FloatLabelModule, InputText, DatePicker],
   templateUrl: './calendar.html',
   styleUrl: './calendar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Calendar implements OnInit {
   calendarService = inject(CalendarService);
+  formBuilder = inject(FormBuilder);
+  visible = signal(false);
+  form = signal<FormGroup | any>(null);
+
+  datetime12h: Date[] | undefined;
+
+  datetime24h: Date[] | undefined;
+
+  time: Date[] | undefined;
+
+  transactionTypes = signal<{ label: string, value: string }[]>([
+    { label: 'Crédito', value: TransactionType.CREDIT },
+    { label: 'Débito', value: TransactionType.DEBIT },
+  ]);
 
   calendarOptions: WritableSignal<CalendarOptions> = signal({
     initialView: 'timeGridWeek',
@@ -37,7 +57,7 @@ export class Calendar implements OnInit {
       day: 'Dia',
     },
     slotMinTime: '07:00:00',
-    slotMaxTime: '19:00:00',
+    slotMaxTime: '23:00:00',
     slotDuration: '01:00:00',
     allDaySlot: false,
     height: '100%',
@@ -60,7 +80,6 @@ export class Calendar implements OnInit {
       const view = args.view.type;
       const weekday = args.text.split(' ')[0].replace(',', '');
 
-      // Custom header with numbers only for week/day views
       if (view === 'timeGridWeek' || view === 'timeGridDay') {
         const day = args.date.getDate();
         return {
@@ -81,7 +100,41 @@ export class Calendar implements OnInit {
   })
 
   ngOnInit() {
-    this.calendarService.events().subscribe((events: EventsEvent[]) => {
+    this.form.set(this.formBuilder.group({
+      description: ['', [Validators.required]],
+      type: ['', [Validators.required]],
+      competency: ['', [Validators.required]],
+    }));
+
+    this.updateCalendar();
+  }
+
+  showDialog() {
+    this.visible.set(true);
+  }
+
+  add() {
+    const { description, type, competency } = this.form().value;
+
+    this.calendarService.addEvent({
+      description,
+      type: type.value as TransactionType,
+      competency
+    }).subscribe({
+      next: () => {
+        this.updateCalendar();
+
+        this.visible.set(false);
+        this.form().reset();
+      },
+      error: (error: any) => {
+        console.error(error);
+      }
+    });
+  }
+
+  updateCalendar() {
+    this.calendarService.events().subscribe((events: Event[]) => {
       const eventsSource = events.map((event): any => ({
         title: event.description,
         end: event.competency.replace('Z', ''),
