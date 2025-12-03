@@ -27,7 +27,9 @@ export class EventsComponent {
             .events()
             .filter((event) => {
               if (period === 'day') {
-                return event.competency.split('-')[0] === date.getDate().toString();
+                const datePart = event.competency.split('T')[0];
+                
+                return parseInt(datePart.split('-')[2], 10) === date.getDate();
               } else if (period === 'week') {
                 return this.isDateInCurrentWeek(new Date(event.competency));
               } else if (period === 'year') {
