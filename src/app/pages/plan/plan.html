@@ -1,0 +1,14 @@
+<div class="grid gap-4">
+  @for (tip of financialTips(); track tip.title) {
+    <app-box>
+      <div class="grid grid-cols-[60px_1fr] gap-2">
+        <ng-icon name="{{ tip.icon }}" size="48"  color="#0F2A1D" />
+
+        <div>
+            <p class="text-xl font-medium text-black mb-3">{{ tip.title }}</p>
+            <p class="text-sm font-medium text-gray-600">{{ tip.description }}</p>
+        </div>
+      </div>
+    </app-box>
+  }
+</div>

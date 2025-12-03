@@ -51,6 +51,13 @@ export const routes: Routes = [
         data: {
           title: 'Calendário'
         }
+      },
+      {
+        path: 'plan',
+        loadComponent: () => import('./pages/plan/plan').then(m => m.PlanComponent),
+        data: {
+          title: 'Planejamento Financeiro'
+        }
       }
     ]
   }

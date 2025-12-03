@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { heroArrowsRightLeftSolid, heroSquares2x2Solid, heroCalendarDaysSolid } from '@ng-icons/heroicons/solid';
-import { NgIconComponent } from '@ng-icons/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { heroMap } from '@ng-icons/heroicons/outline';
+import { heroArrowsRightLeftSolid, heroCalendarDaysSolid, heroSquares2x2Solid } from '@ng-icons/heroicons/solid';
 
 type Option = {
   icon: string;
@@ -17,12 +17,13 @@ type Option = {
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  viewProviders: [provideIcons({ heroArrowsRightLeftSolid, heroSquares2x2Solid, heroCalendarDaysSolid })]
+  viewProviders: [provideIcons({ heroArrowsRightLeftSolid, heroSquares2x2Solid, heroCalendarDaysSolid, heroMap })]
 })
 export class SidebarComponent {
   options: Option[] = [
     { icon: 'heroArrowsRightLeftSolid', label: 'Dashboard', path: '/dashboard' },
     { icon: 'heroSquares2x2Solid', label: 'Transactions', path: '/transactions' },
     { icon: 'heroCalendarDaysSolid', label: 'Calendar', path: '/calendar' },
+    { icon: 'heroMap', label: 'Plan', path: '/plan' },
   ]
 }
